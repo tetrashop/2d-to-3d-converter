@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>قیمت‌گذاری - سرویس ابری تبدیل 2D به 3D</title>
+    <style>
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --dark: #1e293b;
+            --darker: #0f172a;
+            --light: #f8fafc;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Vazirmatn', 'Segoe UI', Tahoma, sans-serif;
+            background: linear-gradient(135deg, var(--darker), var(--dark));
+            color: var(--light);
+            line-height: 1.7;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--primary), var(--success));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .pricing-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            padding: 2.5rem;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .pricing-card.featured {
+            border-color: var(--primary);
+            background: rgba(99, 102, 241, 0.1);
+            transform: scale(1.05);
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary);
+        }
+
+        .plan-badge {
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--success);
+            color: white;
+            padding: 0.5rem 1.5rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .plan-name {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        .plan-price {
+            font-size: 3rem;
+            font-weight: bold;
+            margin: 1rem 0;
+            color: var(--success);
+        }
+
+        .plan-period {
+            color: #94a3b8;
+            margin-bottom: 2rem;
+        }
+
+        .plan-features {
+            list-style: none;
+            margin: 2rem 0;
+        }
+
+        .plan-features li {
+            padding: 0.8rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .plan-features li:before {
+            content: "✅";
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+            width: 100%;
+            justify-content: center;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        .btn-success {
+            background: var(--success);
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #0da271;
+            transform: translateY(-2px);
+        }
+
+        .faq-section {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 3rem;
+            border-radius: 15px;
+            margin-top: 4rem;
+        }
+
+        .faq-item {
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 1.5rem;
+        }
+
+        .faq-question {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+        }
+
+        .navigation {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .nav-link {
+            color: var(--light);
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>💰 قیمت‌گذاری سرویس ابری</h1>
+            <p>پلن مناسب کسب‌وکار خود را انتخاب کنید</p>
+        </div>
+
+        <div class="pricing-grid">
+            <!-- پلن رایگان -->
+            <div class="pricing-card">
+                <div class="plan-name">🆓 رایگان</div>
+                <div class="plan-price">۰</div>
+                <div class="plan-period">همیشه رایگان</div>
+                
+                <ul class="plan-features">
+                    <li>۱۰ تبدیل در ماه</li>
+                    <li>فایل‌های تا ۱۰ مگابایت</li>
+                    <li>خروجی OBJ استاندارد</li>
+                    <li>پشتیبانی از طریق انجمن</li>
+                    <li>تبدیل پایه 2D به 3D</li>
+                </ul>
+                
+                <button class="btn btn-primary" onclick="selectPlan('free')">
+                    🚀 شروع رایگان
+                </button>
+            </div>
+
+            <!-- پلن پایه -->
+            <div class="pricing-card featured">
+                <div class="plan-badge">پرفروش</div>
+                <div class="plan-name">⭐ پایه</div>
+                <div class="plan-price">۲۹<span style="font-size: 1rem;">$</span></div>
+                <div class="plan-period">ماهیانه</div>
+                
+                <ul class="plan-features">
+                    <li>۱۰۰ تبدیل در ماه</li>
+                    <li>فایل‌های تا ۲۵ مگابایت</li>
+                    <li>خروجی OBJ + FBX</li>
+                    <li>پشتیبانی ایمیلی</li>
+                    <li>تبدیل پیشرفته‌تر</li>
+                    <li>API Access</li>
+                    <li>اولویت در پردازش</li>
+                </ul>
+                
+                <button class="btn btn-success" onclick="selectPlan('basic')">
+                    💳 خرید پلن پایه
+                </button>
+            </div>
+
+            <!-- پلن حرفه‌ای -->
+            <div class="pricing-card">
+                <div class="plan-name">🚀 حرفه‌ای</div>
+                <div class="plan-price">۹۹<span style="font-size: 1rem;">$</span></div>
+                <div class="plan-period">ماهیانه</div>
+                
+                <ul class="plan-features">
+                    <li>۵۰۰ تبدیل در ماه</li>
+                    <li>فایل‌های تا ۵۰ مگابایت</li>
+                    <li>تمام فرمت‌های خروجی</li>
+                    <li>پشتیبانی تلفنی</li>
+                    <li>تبدیل پیشرفته با AI</li>
+                    <li>API کامل</li>
+                    <li>پردازش گروهی</li>
+                    <li>آنالیتیکس پیشرفته</li>
+                </ul>
+                
+                <button class="btn btn-primary" onclick="selectPlan('professional')">
+                    💼 ارتقا به حرفه‌ای
+                </button>
+            </div>
+
+            <!-- پلن سازمانی -->
+            <div class="pricing-card">
+                <div class="plan-name">🏢 سازمانی</div>
+                <div class="plan-price">۲۹۹<span style="font-size: 1rem;">$</span></div>
+                <div class="plan-period">ماهیانه</div>
+                
+                <ul class="plan-features">
+                    <li>۲۰۰۰ تبدیل در ماه</li>
+                    <li>فایل‌های تا ۱۰۰ مگابایت</li>
+                    <li>همه فرمت‌ها + سفارشی</li>
+                    <li>پشتیبانی اختصاصی</li>
+                    <li>پردازش Real-time</li>
+                    <li>White-label</li>
+                    <li>API نامحدود</li>
+                    <li>SLAs تضمین شده</li>
+                    <li>توسعه ویژگی‌های سفارشی</li>
+                </ul>
+                
+                <button class="btn btn-primary" onclick="selectPlan('enterprise')">
+                    🏢 درخواست دمو
+                </button>
+            </div>
+        </div>
+
+        <!-- بخش سوالات متداول -->
+        <div class="faq-section">
+            <h2 style="text-align: center; margin-bottom: 2rem; color: var(--primary);">❓ سوالات متداول</h2>
+            
+            <div class="faq-item">
+                <div class="faq-question">آیا می‌توانم پلن خود را بعداً تغییر دهم؟</div>
+                <p>بله، در هر زمان می‌توانید پلن خود را ارتقا یا downgrade دهید. مابه‌تفاوت محاسبه می‌شود.</p>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">تبدیل‌های استفاده نشده به ماه بعد منتقل می‌شوند؟</div>
+                <p>خیر، تبدیل‌های هر ماه استفاده نشده به ماه بعد منتقل نمی‌شوند. بهتر است پلن مناسب استفاده خود را انتخاب کنید.</p>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">چه روش‌های پرداختی پشتیبانی می‌شوند؟</div>
+                <p>کارت‌های اعتباری بین‌المللی، پی پال، و برای کاربران ایرانی درگاه‌های پرداخت داخلی.</p>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">آیا امکان بازگشت وجه وجود دارد؟</div>
+                <p>بله، تا ۱۴ روز پس از خرید در صورت عدم رضایت، کل مبلغ بازگردانده می‌شود.</p>
+            </div>
+        </div>
+
+        <div class="navigation">
+            <a href="index.html" class="nav-link">🏠 صفحه اصلی</a>
+            <a href="advanced_converter.html" class="nav-link">🎨 تبدیل پیشرفته</a>
+            <a href="client_dashboard.html" class="nav-link">👥 پنل مدیریت</a>
+        </div>
+    </div>
+
+    <script>
+        function selectPlan(plan) {
+            const planNames = {
+                'free': 'رایگان',
+                'basic': 'پایه', 
+                'professional': 'حرفه‌ای',
+                'enterprise': 'سازمانی'
+            };
+            
+            if(plan === 'free') {
+                window.location.href = 'client_dashboard.html';
+            } else {
+                // نمایش صفحه پرداخت
+                alert(`🚀 در حال انتقال به صفحه پرداخت برای پلن ${planNames[plan]}...\n\n(این بخش به درگاه پرداخت متصل خواهد شد)`);
+                // window.location.href = `payment.html?plan=${plan}`;
+            }
+        }
+
+        // نمایش انیمیشن هنگام اسکرول
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.pricing-card');
+            cards.forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(50px)';
+                
+                setTimeout(() => {
+                    card.style.transition = 'all 0.6s ease';
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, index * 200);
+            });
+        });
+    </script>
+</body>
+</html>

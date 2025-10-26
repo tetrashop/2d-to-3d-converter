@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>پرداخت - سرویس ابری تبدیل 2D به 3D</title>
+    <style>
+        :root {
+            --primary: #6366f1;
+            --success: #10b981;
+            --dark: #1e293b;
+            --light: #f8fafc;
+        }
+
+        body {
+            font-family: 'Vazirmatn', sans-serif;
+            background: linear-gradient(135deg, #0f172a, var(--dark));
+            color: var(--light);
+            margin: 0;
+            padding: 2rem;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container {
+            max-width: 500px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 2rem;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .header h1 {
+            background: linear-gradient(135deg, var(--primary), var(--success));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #94a3b8;
+        }
+
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid #374151;
+            border-radius: 8px;
+            color: var(--light);
+            font-size: 1rem;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 1rem;
+            background: var(--success);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            background: #0da271;
+            transform: translateY(-2px);
+        }
+
+        .plan-summary {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .security-notice {
+            text-align: center;
+            color: #94a3b8;
+            font-size: 0.9rem;
+            margin-top: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>💳 تکمیل پرداخت</h1>
+            <p>پلن انتخابی: <strong id="selectedPlan">پایه</strong></p>
+        </div>
+
+        <div class="plan-summary">
+            <h3>📦 خلاصه سفارش</h3>
+            <p>پلن: <span id="planName">پایه</span></p>
+            <p>قیمت: <span id="planPrice">۲۹ دلار</span></p>
+            <p>دوره: <span id="planPeriod">ماهیانه</span></p>
+        </div>
+
+        <form id="paymentForm">
+            <div class="form-group">
+                <label>📧 ایمیل</label>
+                <input type="email" placeholder="email@example.com" required>
+            </div>
+
+            <div class="form-group">
+                <label>👤 نام کامل</label>
+                <input type="text" placeholder="نام و نام خانوادگی" required>
+            </div>
+
+            <div class="form-group">
+                <label>💳 روش پرداخت</label>
+                <select>
+                    <option>کارت اعتباری (Visa/MasterCard)</option>
+                    <option>پی پال (PayPal)</option>
+                    <option>زرین‌پال (برای کاربران ایران)</option>
+                    <option>آی‌دی پی (IDPay)</option>
+                </select>
+            </div>
+
+            <button type="submit" class="btn">
+                🔐 پرداخت امن
+            </button>
+        </form>
+
+        <div class="security-notice">
+            🔒 پرداخت شما به صورت امن انجام می‌شود
+        </div>
+    </div>
+
+    <script>
+        // دریافت اطلاعات پلن از URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const plan = urlParams.get('plan') || 'basic';
+
+        const plans = {
+            'basic': { name: 'پایه', price: '۲۹ دلار', period: 'ماهیانه' },
+            'professional': { name: 'حرفه‌ای', price: '۹۹ دلار', period: 'ماهیانه' },
+            'enterprise': { name: 'سازمانی', price: '۲۹۹ دلار', period: 'ماهیانه' }
+        };
+
+        if(plans[plan]) {
+            document.getElementById('selectedPlan').textContent = plans[plan].name;
+            document.getElementById('planName').textContent = plans[plan].name;
+            document.getElementById('planPrice').textContent = plans[plan].price;
+            document.getElementById('planPeriod').textContent = plans[plan].period;
+        }
+
+        // مدیریت فرم پرداخت
+        document.getElementById('paymentForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // شبیه‌سازی پرداخت موفق
+            alert('✅ پرداخت با موفقیت انجام شد!\n\n🎉 اکنون می‌توانید از سرویس استفاده کنید.\n📧 جزئیات به ایمیل شما ارسال شد.');
+            
+            // انتقال به پنل کاربر
+            setTimeout(() => {
+                window.location.href = 'client_dashboard.html?payment=success';
+            }, 2000);
+        });
+    </script>
+</body>
+</html>

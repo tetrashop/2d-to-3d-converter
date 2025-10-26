@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>پردازش پیشرفته 2D به 3D - سرویس ابری</title>
+    <style>
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --dark: #1e293b;
+            --darker: #0f172a;
+            --light: #f8fafc;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Vazirmatn', 'Segoe UI', Tahoma, sans-serif;
+            background: linear-gradient(135deg, var(--darker), var(--dark));
+            color: var(--light);
+            line-height: 1.7;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--primary), var(--success));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .workflow {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .upload-section, .preview-section {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            padding: 2rem;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .upload-area {
+            border: 2px dashed rgba(99, 102, 241, 0.5);
+            border-radius: 10px;
+            padding: 3rem 2rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 2rem;
+        }
+
+        .upload-area:hover {
+            border-color: var(--primary);
+            background: rgba(99, 102, 241, 0.1);
+        }
+
+        .upload-area i {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .format-selector {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .format-option {
+            background: var(--darker);
+            padding: 1rem;
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+            border: 1px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .format-option:hover {
+            border-color: var(--primary);
+        }
+
+        .format-option.selected {
+            border-color: var(--success);
+            background: rgba(16, 185, 129, 0.1);
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        .btn-success {
+            background: var(--success);
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #0da271;
+            transform: translateY(-2px);
+        }
+
+        .preview-container {
+            width: 100%;
+            height: 400px;
+            background: var(--darker);
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+            margin-bottom: 1rem;
+        }
+
+        #modelViewer {
+            width: 100%;
+            height: 100%;
+        }
+
+        .controls {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 1rem;
+        }
+
+        .control-btn {
+            padding: 0.5rem 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            border-radius: 5px;
+            color: var(--light);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .control-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .progress-container {
+            margin: 2rem 0;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--success));
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .result-section {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            padding: 2rem;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 2rem;
+        }
+
+        .download-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .download-btn {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: var(--darker);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            color: var(--light);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .download-btn:hover {
+            border-color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .preview-image {
+            max-width: 100%;
+            max-height: 300px;
+            border-radius: 10px;
+            margin: 1rem 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎨 پردازش پیشرفته 2D به 3D</h1>
+            <p>تبدیل تصاویر به مدل‌های سه بعدی با قابلیت چرخش، زوم و خروجی حرفه‌ای</p>
+        </div>
+
+        <div class="workflow">
+            <!-- بخش آپلود -->
+            <div class="upload-section">
+                <h2 class="section-title">📤 آپلود تصویر</h2>
+                
+                <div class="upload-area" id="uploadArea">
+                    <i>📁</i>
+                    <h3>تصویر خود را اینجا رها کنید</h3>
+                    <p>یا برای انتخاب فایل کلیک کنید</p>
+                    <p style="font-size: 0.9rem; color: #94a3b8; margin-top: 1rem;">
+                        فرمت‌های پشتیبانی شده: JPG, PNG, BMP
+                    </p>
+                </div>
+                <input type="file" id="fileInput" accept=".jpg,.jpeg,.png,.bmp" class="hidden">
+                
+                <div id="imagePreview" class="hidden">
+                    <img id="previewImg" class="preview-image">
+                </div>
+
+                <h3 class="section-title">🎯 فرمت خروجی</h3>
+                <div class="format-selector">
+                    <div class="format-option" data-format="maya">
+                        <div>🎬</div>
+                        <div>مایا</div>
+                        <small>.ma</small>
+                    </div>
+                    <div class="format-option" data-format="3ds_max">
+                        <div>💻</div>
+                        <div>3ds Max</div>
+                        <small>.max</small>
+                    </div>
+                    <div class="format-option" data-format="obj">
+                        <div>🔺</div>
+                        <div>OBJ</div>
+                        <small>.obj</small>
+                    </div>
+                    <div class="format-option" data-format="fbx">
+                        <div>📦</div>
+                        <div>FBX</div>
+                        <small>.fbx</small>
+                    </div>
+                </div>
+
+                <button class="btn btn-primary" id="convertBtn" style="width: 100%; margin-top: 2rem;">
+                    🚀 آغاز تبدیل پیشرفته
+                </button>
+            </div>
+
+            <!-- بخش پیش‌نمایش -->
+            <div class="preview-section">
+                <h2 class="section-title">👁️ پیش‌نمایش 3D</h2>
+                
+                <div class="preview-container">
+                    <div id="modelViewer">
+                        <div style="display: flex; justify-content: center; align-items: center; height: 100%; color: #94a3b8;">
+                            🎨 مدل 3D اینجا نمایش داده می‌شود
+                        </div>
+                    </div>
+                </div>
+
+                <div class="controls">
+                    <button class="control-btn" id="rotateBtn">🔄 چرخش</button>
+                    <button class="control-btn" id="zoomInBtn">➕ بزرگنمایی</button>
+                    <button class="control-btn" id="zoomOutBtn">➖ کوچکنمایی</button>
+                    <button class="control-btn" id="resetBtn">🔄 بازنشانی</button>
+                </div>
+
+                <div class="progress-container hidden" id="progressContainer">
+                    <div style="display: flex; justify-content: between; margin-bottom: 0.5rem;">
+                        <span>در حال پردازش...</span>
+                        <span id="progressText">0%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressFill"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- بخش نتایج -->
+        <div class="result-section hidden" id="resultSection">
+            <h2 class="section-title">✅ مدل تولید شد</h2>
+            <p>مدل سه بعدی شما با موفقیت تولید شد. اکنون می‌توانید آن را دانلود کنید.</p>
+            
+            <div class="download-options">
+                <a href="#" class="download-btn" id="downloadOriginal">
+                    <span>📥</span>
+                    <div>
+                        <div>دانلود فایل اصلی</div>
+                        <small id="fileInfo">فرمت: OBJ - سایز: 0KB</small>
+                    </div>
+                </a>
+                
+                <a href="#" class="download-btn">
+                    <span>🎬</span>
+                    <div>
+                        <div>خروجی مایا</div>
+                        <small>برای Autodesk Maya</small>
+                    </div>
+                </a>
+                
+                <a href="#" class="download-btn">
+                    <span>💻</span>
+                    <div>
+                        <div>خروجی 3ds Max</div>
+                        <small>برای 3D Studio Max</small>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script src="advanced_converter.js"></script>
+</body>
+</html>

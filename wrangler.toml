@@ -1,0 +1,10 @@
+name = "2d-to-3d-converter"
+compatibility_date = "2023-10-01"
+
+[env.production]
+zone_id = "YOUR_ZONE_ID"
+account_id = "YOUR_ACCOUNT_ID"
+
+[[routes]]
+pattern = "2d-to-3d.yourdomain.com/*"
+custom_domain = true

@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>سیستم مشارکت در درآمد - مبدل 2D به 3D</title>
+    <style>
+        :root {
+            --primary: #8B5CF6;
+            --primary-dark: #7C3AED;
+            --success: #10B981;
+            --warning: #F59E0B;
+            --danger: #EF4444;
+            --dark: #1F2937;
+            --darker: #111827;
+            --light: #F9FAFB;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, var(--darker), var(--dark));
+            color: var(--light);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--primary), var(--success));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .partnership-plans {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .plan-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 2rem;
+            border-radius: 15px;
+            border: 1px solid var(--primary);
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .plan-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--success);
+        }
+
+        .plan-card.premium {
+            border-color: var(--warning);
+            background: rgba(245, 158, 11, 0.1);
+        }
+
+        .plan-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .plan-price {
+            font-size: 2rem;
+            font-weight: bold;
+            margin: 1rem 0;
+            color: var(--success);
+        }
+
+        .plan-features {
+            list-style: none;
+            margin: 1.5rem 0;
+        }
+
+        .plan-features li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            margin-top: 1rem;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+        }
+
+        .btn-success {
+            background: var(--success);
+            color: white;
+        }
+
+        .revenue-dashboard {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 2rem;
+            border-radius: 15px;
+            margin-bottom: 2rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: var(--darker);
+            padding: 1.5rem;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            margin: 0.5rem 0;
+            color: var(--success);
+        }
+
+        .partnership-form {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 2rem;
+            border-radius: 15px;
+            margin-bottom: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #9CA3AF;
+        }
+
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            padding: 1rem;
+            background: var(--darker);
+            border: 1px solid #374151;
+            border-radius: 8px;
+            color: var(--light);
+            font-size: 1rem;
+        }
+
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .agreement-section {
+            background: rgba(16, 185, 129, 0.1);
+            padding: 2rem;
+            border-radius: 10px;
+            border: 1px solid var(--success);
+            margin: 2rem 0;
+        }
+
+        @media (max-width: 768px) {
+            .partnership-plans {
+                grid-template-columns: 1fr;
+            }
+            
+            .container {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🤝 سیستم مشارکت در درآمد</h1>
+            <p>با ما شریک شوید و از فروش مدل‌های 3D درآمد کسب کنید</p>
+        </div>
+
+        <!-- پلن‌های مشارکت -->
+        <div class="partnership-plans">
+            <div class="plan-card">
+                <div class="plan-icon">🎯</div>
+                <h3>مشارکت استاندارد</h3>
+                <div class="plan-price">سهم ۲۰٪</div>
+                <ul class="plan-features">
+                    <li>✅ آپلود نامحدود تصاویر</li>
+                    <li>✅ سهم ۲۰٪ از هر فروش</li>
+                    <li>✅ پنل مدیریت پیشرفته</li>
+                    <li>✅ پشتیبانی فنی</li>
+                </ul>
+                <button class="btn btn-primary" onclick="selectPlan('standard')">
+                    انتخاب پلن
+                </button>
+            </div>
+
+            <div class="plan-card premium">
+                <div class="plan-icon">🚀</div>
+                <h3>مشارکت حرفه‌ای</h3>
+                <div class="plan-price">سهم ۳۵٪</div>
+                <ul class="plan-features">
+                    <li>✅ تمام امکانات استاندارد</li>
+                    <li>✅ سهم ۳۵٪ از هر فروش</li>
+                    <li>✅ دسترسی API اختصاصی</li>
+                    <li>✅ تحلیل‌های پیشرفته</li>
+                    <li>✅ پشتیبانی VIP</li>
+                </ul>
+                <button class="btn btn-success" onclick="selectPlan('premium')">
+                    انتخاب پلن
+                </button>
+            </div>
+        </div>
+
+        <!-- فرم درخواست مشارکت -->
+        <div class="partnership-form" id="partnershipForm" style="display: none;">
+            <h2>📝 درخواست مشارکت</h2>
+            
+            <div class="form-group">
+                <label for="partnerEmail">ایمیل شما</label>
+                <input type="email" id="partnerEmail" placeholder="email@example.com" required>
+            </div>
+
+            <div class="form-group">
+                <label for="proposedShare">درصد سهم پیشنهادی شما</label>
+                <input type="number" id="proposedShare" min="10" max="50" step="5" value="20" required>
+                <small>بین ۱۰٪ تا ۵۰٪ (پیشنهاد ما: ۲۰٪)</small>
+            </div>
+
+            <div class="form-group">
+                <label for="invitationMessage">پیام شما (اختیاری)</label>
+                <textarea id="invitationMessage" rows="4" placeholder="در مورد زمینه فعالیت و تخصص خود بنویسید..."></textarea>
+            </div>
+
+            <div class="agreement-section">
+                <h3>📄 توافق‌نامه مشارکت</h3>
+                <p>با انتخاب این پلن، موافقت می‌کنید که:</p>
+                <ul>
+                    <li>✅ سهم درآمد بر اساس درصد تعیین شده محاسبه می‌شود</li>
+                    <li>✅ پرداخت‌ها ماهیانه انجام می‌شود</li>
+                    <li>✅ شما مالک مدل‌های تولید شده هستید</li>
+                    <li>✅ پلتفرم حق نمایش نمونه‌ای از کارهای شما را دارد</li>
+                </ul>
+            </div>
+
+            <button class="btn btn-success" onclick="submitPartnershipRequest()">
+                ارسال درخواست مشارکت
+            </button>
+        </div>
+
+        <!-- داشبورد درآمد -->
+        <div class="revenue-dashboard" id="revenueDashboard" style="display: none;">
+            <h2>📊 داشبورد درآمد</h2>
+            
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div>کل درآمد</div>
+                    <div class="stat-number" id="totalRevenue">$0</div>
+                    <div>USD</div>
+                </div>
+                <div class="stat-card">
+                    <div>سهم شما</div>
+                    <div class="stat-number" id="myShare">$0</div>
+                    <div>USD</div>
+                </div>
+                <div class="stat-card">
+                    <div>مدل‌های فروخته شده</div>
+                    <div class="stat-number" id="modelsSold">0</div>
+                    <div>مدل</div>
+                </div>
+            </div>
+
+            <button class="btn btn-primary" onclick="requestPayout()">
+                درخواست پرداخت
+            </button>
+        </div>
+    </div>
+
+    <script src="partnership.js"></script>
+</body>
+</html>

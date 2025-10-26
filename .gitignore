@@ -1,0 +1,28 @@
+# فایل‌های موقت
+logs/
+*.log
+*.pid
+*.pyc
+__pycache__/
+*.cache
+
+# فایل‌های آپلود و خروجی
+backend/uploads/
+backend/outputs/
+test_files/
+test_image.jpg
+
+# فایل‌های سیستمی
+.DS_Store
+Thumbs.db
+
+# محیط مجازی
+venv/
+env/
+*.env
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo

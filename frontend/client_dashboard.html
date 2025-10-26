@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>پنل مدیریت کلاینت‌ها - سرویس ابری 2D به 3D</title>
+    <style>
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --dark: #1e293b;
+            --darker: #0f172a;
+            --light: #f8fafc;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Vazirmatn', 'Segoe UI', Tahoma, sans-serif;
+            background: linear-gradient(135deg, var(--darker), var(--dark));
+            color: var(--light);
+            line-height: 1.7;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--primary), var(--success));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 2rem;
+        }
+
+        .sidebar {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            padding: 2rem;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            height: fit-content;
+        }
+
+        .nav-links {
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-bottom: 0.5rem;
+        }
+
+        .nav-links a {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            color: var(--light);
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            background: rgba(99, 102, 241, 0.2);
+            color: var(--primary);
+        }
+
+        .main-content {
+            display: grid;
+            gap: 2rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 1.5rem;
+            border-radius: 10px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            margin: 0.5rem 0;
+            color: var(--success);
+        }
+
+        .section {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            padding: 2rem;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+            display: flex;
+            justify-content: between;
+            align-items: center;
+        }
+
+        .btn {
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        .btn-success {
+            background: var(--success);
+            color: white;
+        }
+
+        .table-container {
+            overflow-x: auto;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 1rem;
+            text-align: right;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        th {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .status-badge {
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .status-active { background: rgba(16, 185, 129, 0.2); color: var(--success); }
+        .status-suspended { background: rgba(245, 158, 11, 0.2); color: var(--warning); }
+        .status-inactive { background: rgba(239, 68, 68, 0.2); color: var(--danger); }
+
+        .tier-badge {
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            background: rgba(99, 102, 241, 0.2);
+            color: var(--primary);
+        }
+
+        .plan-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .plan-card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 2rem;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .plan-card.featured {
+            border-color: var(--primary);
+            background: rgba(99, 102, 241, 0.1);
+            transform: scale(1.05);
+        }
+
+        .plan-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-5px);
+        }
+
+        .plan-price {
+            font-size: 2rem;
+            font-weight: bold;
+            margin: 1rem 0;
+            color: var(--success);
+        }
+
+        .plan-features {
+            list-style: none;
+            margin: 1.5rem 0;
+        }
+
+        .plan-features li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .api-key {
+            background: var(--darker);
+            padding: 1rem;
+            border-radius: 8px;
+            font-family: monospace;
+            word-break: break-all;
+            margin: 1rem 0;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #94a3b8;
+        }
+
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 1rem;
+            background: var(--darker);
+            border: 1px solid #374151;
+            border-radius: 8px;
+            color: var(--light);
+            font-size: 1rem;
+        }
+
+        .tab-container {
+            margin-top: 2rem;
+        }
+
+        .tabs {
+            display: flex;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 2rem;
+        }
+
+        .tab {
+            padding: 1rem 2rem;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .tab.active {
+            border-bottom-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>👥 پنل مدیریت کلاینت‌ها</h1>
+            <p>مدیریت مشتریان و اشتراک‌های سرویس ابری</p>
+        </div>
+
+        <div class="dashboard-grid">
+            <!-- نوار کناری -->
+            <div class="sidebar">
+                <ul class="nav-links">
+                    <li><a href="#" class="active" onclick="showTab('overview')">📊 نمای کلی</a></li>
+                    <li><a href="#" onclick="showTab('clients')">👥 کلاینت‌ها</a></li>
+                    <li><a href="#" onclick="showTab('plans')">💰 پلن‌ها</a></li>
+                    <li><a href="#" onclick="showTab('analytics')">📈 آمار و تحلیل</a></li>
+                    <li><a href="#" onclick="showTab('api')">🔑 مدیریت API</a></li>
+                </ul>
+            </div>
+
+            <!-- محتوای اصلی -->
+            <div class="main-content">
+                <!-- آمار کلی -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div>کل کلاینت‌ها</div>
+                        <div class="stat-number" id="totalClients">0</div>
+                    </div>
+                    <div class="stat-card">
+                        <div>کلاینت‌های فعال</div>
+                        <div class="stat-number" id="activeClients">0</div>
+                    </div>
+                    <div class="stat-card">
+                        <div>تبدیل‌های امروز</div>
+                        <div class="stat-number" id="todayConversions">0</div>
+                    </div>
+                    <div class="stat-card">
+                        <div>درآمد ماهیانه</div>
+                        <div class="stat-number" id="monthlyRevenue">$0</div>
+                    </div>
+                </div>
+
+                <!-- تب‌ها -->
+                <div class="tab-container">
+                    <!-- نمای کلی -->
+                    <div id="overview-tab" class="tab-content active">
+                        <div class="section">
+                            <h2 class="section-title">📊 نمای کلی سیستم</h2>
+                            <div id="overviewContent">
+                                <!-- محتوای نمای کلی -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- مدیریت کلاینت‌ها -->
+                    <div id="clients-tab" class="tab-content">
+                        <div class="section">
+                            <div class="section-title">
+                                <span>👥 مدیریت کلاینت‌ها</span>
+                                <button class="btn btn-primary" onclick="showAddClientForm()">
+                                    ➕ افزودن کلاینت
+                                </button>
+                            </div>
+                            
+                            <div class="table-container">
+                                <table id="clientsTable">
+                                    <thead>
+                                        <tr>
+                                            <th>شرکت</th>
+                                            <th>ایمیل</th>
+                                            <th>اشتراک</th>
+                                            <th>وضعیت</th>
+                                            <th>سهمیه استفاده شده</th>
+                                            <th>عملیات</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="clientsTableBody">
+                                        <!-- داده‌های کلاینت‌ها -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- پلن‌های اشتراک -->
+                    <div id="plans-tab" class="tab-content">
+                        <div class="section">
+                            <h2 class="section-title">💰 پلن‌های اشتراک</h2>
+                            <div class="plan-cards" id="plansContainer">
+                                <!-- پلن‌ها اینجا نمایش داده می‌شوند -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- آمار و تحلیل -->
+                    <div id="analytics-tab" class="tab-content">
+                        <div class="section">
+                            <h2 class="section-title">📈 آمار و تحلیل</h2>
+                            <div id="analyticsContent">
+                                <!-- نمودارها و آمار -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- مدیریت API -->
+                    <div id="api-tab" class="tab-content">
+                        <div class="section">
+                            <h2 class="section-title">🔑 مدیریت API</h2>
+                            <div id="apiContent">
+                                <!-- مدیریت API Key ها -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="client_dashboard.js"></script>
+</body>
+</html>

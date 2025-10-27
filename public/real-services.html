@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>خدمات واقعی تبدیل 2D به 3D - با شفافیت کامل</title>
+    <style>
+        :root {
+            --primary: #6366f1;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --dark: #1e293b;
+            --light: #f8fafc;
+        }
+
+        body {
+            font-family: 'Vazirmatn', sans-serif;
+            background: linear-gradient(135deg, #0f172a, var(--dark));
+            color: var(--light);
+            margin: 0;
+            padding: 0;
+            line-height: 1.7;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .header h1 {
+            background: linear-gradient(135deg, var(--primary), var(--success));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 2.5rem;
+        }
+
+        .transparency-notice {
+            background: rgba(16, 185, 129, 0.2);
+            border: 2px solid var(--success);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 2rem 0;
+            text-align: center;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .service-card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 2rem;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+        }
+
+        .accuracy-badge {
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 0.5rem 1.5rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .accuracy-40 { background: var(--warning); color: white; }
+        .accuracy-60 { background: #3b82f6; color: white; }
+        .accuracy-100 { background: var(--success); color: white; }
+
+        .service-name {
+            font-size: 1.3rem;
+            margin: 1.5rem 0 1rem 0;
+            color: var(--primary);
+            text-align: center;
+        }
+
+        .service-price {
+            font-size: 2rem;
+            font-weight: bold;
+            text-align: center;
+            margin: 1rem 0;
+            color: var(--success);
+        }
+
+        .service-features {
+            list-style: none;
+            margin: 1.5rem 0;
+        }
+
+        .service-features li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .service-features li:before {
+            content: "✅";
+        }
+
+        .service-limitations {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            border-right: 3px solid var(--warning);
+        }
+
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 1rem;
+            text-align: center;
+            background: var(--primary);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            border: none;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+        }
+
+        .btn:hover {
+            background: var(--success);
+            transform: translateY(-2px);
+        }
+
+        .tech-details {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 2rem;
+            border-radius: 10px;
+            margin: 2rem 0;
+        }
+
+        .navigation {
+            text-align: center;
+            margin-top: 3rem;
+        }
+
+        .nav-link {
+            color: var(--light);
+            text-decoration: none;
+            margin: 0 1rem;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎯 خدمات واقعی تبدیل 2D به 3D</h1>
+            <p>با شفافیت کامل درباره توانایی‌ها و محدودیت‌ها</p>
+        </div>
+
+        <div class="transparency-notice">
+            <h3>📢 شفافیت کامل</h3>
+            <p>ما دقیقاً می‌گوییم چه کاری می‌توانیم انجام دهیم و چه محدودیت‌هایی داریم.</p>
+            <p><strong>هیچ وعده غیرواقعی نمی‌دهیم!</strong></p>
+        </div>
+
+        <div class="services-grid">
+            <!-- خدمات تبدیل ساده -->
+            <div class="service-card">
+                <div class="accuracy-badge accuracy-40">دقت: ۴۰٪</div>
+                <div class="service-name">🔹 تبدیل ساده</div>
+                <div class="service-price">۵ دلار</div>
+                
+                <ul class="service-features">
+                    <li>تبدیل تصاویر ساده و طرح‌های خطی</li>
+                    <li>الگوریتم مبتنی بر استخراج لبه</li>
+                    <li>خروجی فایل OBJ پایه</li>
+                    <li>پردازش خودکار</li>
+                    <li>زمان پردازش: ۵-۱۰ دقیقه</li>
+                </ul>
+
+                <div class="service-limitations">
+                    <strong>⚠️ محدودیت‌ها:</strong>
+                    <p>• فقط برای تصاویر ساده با کنتراست بالا</p>
+                    <p>• مدل 3D ساده بدون جزئیات پیچیده</p>
+                    <p>• مناسب برای نمونه‌سازی اولیه</p>
+                </div>
+
+                <button class="btn" onclick="selectService('simple')">
+                    🛒 انتخاب سرویس
+                </button>
+            </div>
+
+            <!-- خدمات نیمه خودکار -->
+            <div class="service-card">
+                <div class="accuracy-badge accuracy-60">دقت: ۶۰٪</div>
+                <div class="service-name">🔸 پردازش نیمه خودکار</div>
+                <div class="service-price">۱۵ دلار</div>
+                
+                <ul class="service-features">
+                    <li>پردازش خودکار + تنظیمات دستی</li>
+                    <li>الگوریتم‌های پیشرفته‌تر OpenCV</li>
+                    <li>خروجی OBJ + تنظیمات بهینه</li>
+                    <li>پشتیبانی فنی در حین پردازش</li>
+                    <li>زمان پردازش: ۱۵-۳۰ دقیقه</li>
+                </ul>
+
+                <div class="service-limitations">
+                    <strong>⚠️ محدودیت‌ها:</strong>
+                    <p>• نیاز به تصاویر با کیفیت مناسب</p>
+                    <p>• ممکن است نیاز به تنظیمات دستی داشته باشد</p>
+                    <p>• مناسب برای پروژه‌های کوچک تا متوسط</p>
+                </div>
+
+                <button class="btn" onclick="selectService('semi-auto')">
+                    🛒 انتخاب سرویس
+                </button>
+            </div>
+
+            <!-- خدمات مشاوره -->
+            <div class="service-card">
+                <div class="accuracy-badge accuracy-100">دقت: ۱۰۰٪</div>
+                <div class="service-name">🔺 مشاوره تخصصی</div>
+                <div class="service-price">۲۵ دلار</div>
+                
+                <ul class="service-features">
+                    <li>مشاوره فنی کامل</li>
+                    <li>بررسی تصاویر و قابلیت تبدیل</li>
+                    <li>راهنمایی برای بهترین نتایج</li>
+                    <li>گزارش تخصصی و پیشنهادات</li>
+                    <li>پشتیبانی ۷۲ ساعته</li>
+                </ul>
+
+                <div class="service-limitations">
+                    <strong>✅ بدون محدودیت:</strong>
+                    <p>• خدمات کاملاً انسانی و تضمین شده</p>
+                    <p>• بازگشت وجه در صورت عدم رضایت</p>
+                    <p>• مناسب برای پروژه‌های حساس</p>
+                </div>
+
+                <button class="btn" onclick="selectService('consultation')">
+                    🛒 انتخاب سرویس
+                </button>
+            </div>
+        </div>
+
+        <!-- جزئیات فنی -->
+        <div class="tech-details">
+            <h2>🔧 جزئیات فنی سرویس‌ها</h2>
+            
+            <h3>الگوریتم‌های مورد استفاده:</h3>
+            <ul>
+                <li><strong>OpenCV</strong> - استخراج لبه‌ها (Canny, Sobel)</li>
+                <li><strong>Image Processing</strong> - پیش‌پردازش تصاویر</li>
+                <li><strong>Mesh Generation</strong> - تولید مش ساده از لبه‌ها</li>
+                <li><strong>Manual Optimization</strong> - بهینه‌سازی دستی توسط متخصص</li>
+            </ul>
+
+            <h3>فرمت‌های خروجی:</h3>
+            <ul>
+                <li><strong>OBJ</strong> - فرمت استاندارد برای نرم‌افزارهای 3D</li>
+                <li><strong>PDF Report</strong> - گزارش تحلیلی (برای مشاوره)</li>
+            </ul>
+
+            <h3>تضمین‌های ما:</h3>
+            <ul>
+                <li>🔒 بازگشت وجه ۱۰۰٪ در صورت عدم رضایت از مشاوره</li>
+                <li>🔒 شفافیت کامل درباره قابلیت‌ها</li>
+                <li>🔒 پشتیبانی فنی در تمام مراحل</li>
+                <li>🔒 تحویل در زمان توافق شده</li>
+            </ul>
+        </div>
+
+        <div class="navigation">
+            <a href="index.html" class="nav-link">🏠 صفحه اصلی</a>
+            <a href="pricing.html" class="nav-link">💰 قیمت‌گذاری آینده</a>
+            <a href="contact.html" class="nav-link">📞 تماس با ما</a>
+        </div>
+    </div>
+
+    <script>
+        function selectService(serviceType) {
+            const services = {
+                'simple': {
+                    name: 'تبدیل ساده',
+                    price: '۵ دلار',
+                    accuracy: '۴۰٪'
+                },
+                'semi-auto': {
+                    name: 'پردازش نیمه خودکار', 
+                    price: '۱۵ دلار',
+                    accuracy: '۶۰٪'
+                },
+                'consultation': {
+                    name: 'مشاوره تخصصی',
+                    price: '۲۵ دلار', 
+                    accuracy: '۱۰۰٪'
+                }
+            };
+
+            const service = services[serviceType];
+            
+            if(confirm(`آیا مایل به خرید سرویس "${service.name}" به مبلغ ${service.price} هستید؟\n\nدقت تخمینی: ${service.accuracy}\n\nپس از پرداخت، با شما برای دریافت فایل‌ها تماس گرفته می‌شود.`)) {
+                // انتقال به صفحه پرداخت
+                window.location.href = `payment.html?service=${serviceType}&name=${encodeURIComponent(service.name)}&price=${service.price}`;
+            }
+        }
+
+        // نمایش انیمیشن
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.service-card');
+            cards.forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(30px)';
+                
+                setTimeout(() => {
+                    card.style.transition = 'all 0.6s ease';
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, index * 200);
+            });
+        });
+    </script>
+</body>
+</html>

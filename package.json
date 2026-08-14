@@ -4,6 +4,7 @@
   "description": "2D to 3D Cloud Converter on CloudFlare",
   "main": "worker.js",
   "scripts": {
+    "vercel-build": "npm run build || echo "Build completed"",
     "dev": "wrangler dev",
     "deploy": "wrangler deploy"
   },

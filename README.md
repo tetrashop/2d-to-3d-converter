@@ -2,9 +2,9 @@
 
 <div align="center">
 
-![Project Type](https://img.shields.io/badge/Type-3D / Game Engine-blue)
-![Status](https://img.shields.io/badge/status-active-success)
+![Type](https://img.shields.io/badge/Type-nodejs-blue)
 ![License](https://img.shields.io/badge/license-MIT-green)
+![Status](https://img.shields.io/badge/status-active-success)
 
 **بخشی از اکوسیستم TetraShop**
 
@@ -12,42 +12,12 @@
 
 ---
 
-## 📋 چکیده
+## 📋 درباره پروژه
 
-یک موتور سه‌بعدی و سیستم رندرینگ با قابلیت پردازش گرافیکی پیشرفته، طراحی شده برای بازی‌ها و شبیه‌سازی‌های تعاملی. این پروژه از OpenGL/Vulkan و بهینه‌سازی‌های گرافیکی استفاده می‌کند.
+این پروژه با هدف ارائه یک راه‌حل کارآمد در حوزه **nodejs** توسعه یافته است.
 
-### 🎯 اهداف پروژه
-
-- ✅ ارائه یک راه‌حل کارآمد در حوزه **3D / Game Engine**
-- ✅ پیاده‌سازی با استفاده از بهترین روش‌های مهندسی نرم‌افزار
-- ✅ ایجاد کد تمیز، ماژولار و قابل نگهداری
-- ✅ مستندسازی کامل برای سهولت استفاده و مشارکت
-
----
-
-## 🏗️ معماری پروژه
-
-### ساختار کلی
-
-```
-2d-to-3d-converter/
-├── src/           # کدهای منبع اصلی
-│   ├── core/      # ماژول‌های اصلی
-│   ├── utils/     # توابع کمکی
-│   └── config/    # تنظیمات
-├── tests/         # تست‌های واحد و یکپارچه
-├── docs/          # مستندات فنی
-├── scripts/       # اسکریپت‌های ابزار
-├── README.md      # مستندات پروژه
-├── LICENSE        # مجوز
-└── .gitignore     # فایل‌های نادیده‌گرفته
-```
-
-### الگوی طراحی
-
-- **معماری:** لایه‌ای (Layered Architecture)
-- **الگوی اصلی:** MVC / Microservices
-- **مدیریت وابستگی:** Dependency Injection
+- **تعداد فایل‌ها:** 2391
+- **وضعیت:** فعال و پایدار
 
 ---
 
@@ -55,90 +25,77 @@
 
 ### پیش‌نیازها
 
-- - Unity 2021.3+\n- .NET Core 6+
+- Node.js 16+\n- npm 7+
 
 ### نصب
 
 ```bash
-# کلون مخزن
 git clone https://github.com/tetrashop/2d-to-3d-converter.git
 cd 2d-to-3d-converter
-
-# نصب وابستگی‌ها
-# پروژه را با Unity Hub باز کنید
-
-# اجرای پروژه
-# پروژه را در Unity اجرا کنید
+npm install
 ```
 
----
-
-## 📖 راهنمای استفاده
-
-### شروع سریع
+### اجرا
 
 ```bash
-# کد نمونه برای شروع کار
+npm start
 ```
 
 ---
 
-## 🧪 تست
+## 🌐 دیپلوی
 
-```bash
-# اجرای تست‌ها
-# دستور تست بستگی به نوع پروژه دارد
-```
+- **URL:** [  🚀 دیپلوی 2d-to-3d-converter روی Vercel...
+    ❌ دیپلوی ناموفق!
+error: "/data/data/com.termux/files/usr/lib/node_modules/vercel/dist/get-latest-worker.cjs" has bad ELF magic: 2f2a2a0a
+Vercel CLI 58.5.1 (Node.js 26.4.0)
 
----
+  Directory       ~/github/2d-to-3d-converter
 
-## 🐛 مشکلات شناخته‌شده و راه‌حل‌ها
+Loading teams…
+  Team            ramin-edjlal-s-projects
+Searching for existing projects…
+Searching for existing projects…
 
-### مشکل ۱: خطای نصب وابستگی‌ها
-**راه‌حل:** 
-```bash
-# پاک کردن کش و نصب مجدد
-# پاک کردن کش و نصب مجدد
-```
+✓ Created         ramin-edjlal-s-projects/2d-to-3d-converter
 
-### مشکل ۲: خطای حافظه
-**راه‌حل:** افزایش حافظه اختصاص‌یافته یا استفاده از swap.
+> Connecting GitHub repository: https://github.com/tetrashop/2d-to-3d-converter
+> Connected
+Error: Could not read /data/data/com.termux/files/home/github/2d-to-3d-converter/package.json: Expected ',' or '}' after property value in JSON at position 198 (line 7 column 45).](  🚀 دیپلوی 2d-to-3d-converter روی Vercel...
+    ❌ دیپلوی ناموفق!
+error: "/data/data/com.termux/files/usr/lib/node_modules/vercel/dist/get-latest-worker.cjs" has bad ELF magic: 2f2a2a0a
+Vercel CLI 58.5.1 (Node.js 26.4.0)
 
----
+  Directory       ~/github/2d-to-3d-converter
 
-## 🤝 مشارکت در توسعه
+Loading teams…
+  Team            ramin-edjlal-s-projects
+Searching for existing projects…
+Searching for existing projects…
 
-1. **Fork** کردن مخزن
-2. ایجاد **Branch** جدید: `git checkout -b feature/your-feature`
-3. **Commit** تغییرات: `git commit -m 'Add amazing feature'`
-4. **Push** به Branch: `git push origin feature/your-feature`
-5. باز کردن **Pull Request**
+✓ Created         ramin-edjlal-s-projects/2d-to-3d-converter
 
-### قوانین مشارکت
-
-- ✅ رعایت استانداردهای کدنویسی
-- ✅ نوشتن تست برای کدهای جدید
-- ✅ به‌روزرسانی مستندات
-- ✅ استفاده از Conventional Commits
+> Connecting GitHub repository: https://github.com/tetrashop/2d-to-3d-converter
+> Connected
+Error: Could not read /data/data/com.termux/files/home/github/2d-to-3d-converter/package.json: Expected ',' or '}' after property value in JSON at position 198 (line 7 column 45).)
+- **وضعیت:** ✅ فعال
+- **آخرین به‌روزرسانی:** 2026-08-15 17:46
 
 ---
 
 ## 📝 مجوز
 
-این پروژه تحت مجوز **MIT License** منتشر شده است.
+MIT License
 
 ---
 
-## 🌐 ارتباط با تیم
+## 🌐 ارتباط با ما
 
 - **وبسایت:** [tetrashop.ir](https://tetrashop.ir)
 - **گیت‌هاب:** [github.com/tetrashop](https://github.com/tetrashop)
-- **ایمیل:** info@tetrashop.ir
 
 ---
 
 <div align="center">
   <sub>ساخته شده با ❤️ توسط تیم TetraShop</sub>
-  <br>
-  <sub>آخرین به‌روزرسانی: 2026-08-13 17:29</sub>
 </div>
